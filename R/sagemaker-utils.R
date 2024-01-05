@@ -40,21 +40,18 @@ sm_req_endpoint_config <- function(model_name,
     model_data_download_timeout <- return_null_or_integer(model_data_download_timeout)
 
     request <- compact(list(
-        EndpointConfigName = endpoint_name,
-        ProductionVariants = list(compact(list(
-            ModelName = model_name,
-            VariantName = "AllTraffic",
-            InitialVariantWeight = 1,
-            AcceleratorType = accelerator_type,
-            InitialInstanceCount = initial_instance_count,
-            InstanceType = instance_type,
-            VolumeSizeInGB = volume_size,
-            ModelDataDownloadTimeoutInSeconds = model_data_download_timeout
+      EndpointConfigName = endpoint_name,
+      ProductionVariants = list(compact(list(
+        ModelName = model_name,
+        VariantName = "AllTraffic",
+        ServerlessConfig=list(
+          MemorySizeInMB = 1024,
+          MaxConcurrency = 5
+        )
         ))),
         Tags = tags,
-        KmsKeyId = kms_key,
-        DataCaptureConfig = data_capture_config
-    ))
+        KmsKeyId = kms_key
+      ))
 
     return(request)
 }
