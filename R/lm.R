@@ -7,7 +7,9 @@ vetiver_create_description.lm <- function(model) {
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model.lm <- function(model) {
-    butcher::butcher(model)
+    #butcher::butcher(model)
+    model$data <- NULL
+    model
 }
 
 #' @rdname vetiver_create_ptype
