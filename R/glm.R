@@ -21,5 +21,17 @@ vetiver_ptype.glm <- function(model, ...) {
 #' @rdname handler_startup
 #' @export
 handler_predict.glm <- function(vetiver_model, ...) {
-    handler_predict.lm(vetiver_model, ...)
+    ptype <- vetiver_model$prototype
+
+    function(req) {
+        newdata <- req$body
+        if (!is_null(ptype)) {
+            newdata <- vetiver_type_convert(newdata, ptype)
+            newdata <- hardhat::scream(newdata, ptype)
+        }
+        ret <- predict(vetiver_model$model, newdata = newdata, type='response', se.fit=TRUE, ...)
+        list(.pred = 100 * ret$fit,
+             .conf_lo = pmax(100 * (ret$fit - 1.96 * ret$se.fit), 0),
+             .conf_hi = pmin(100 * (ret$fit + 1.96 * ret$se.fit)), 100)
+    }
 }
