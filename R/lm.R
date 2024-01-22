@@ -32,7 +32,10 @@ handler_predict.lm <- function(vetiver_model, ...) {
             newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
         }
-        ret <- predict(vetiver_model$model, newdata = newdata, interval='prediction', ...)
+        ret <- predict(vetiver_model$model,
+                       newdata = newdata,
+                       interval='confidence',
+                       ...)
         list(.pred = as.numeric(ret[,'fit']),
              .conf_lo = as.numeric(ret[,'lwr']),
              .conf_hi = as.numeric(ret[,'upr']))
