@@ -24,9 +24,11 @@ vetiver_ptype.coxph <- function(model, ...) {
 handler_predict.coxph <- function(vetiver_model, ...) {
 
     ptype <- vetiver_model$prototype
+    print(ptype)
 
     function(req) {
         newdata <- req$body
+        print(newdata)
         if (!is_null(ptype)) {
             newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
