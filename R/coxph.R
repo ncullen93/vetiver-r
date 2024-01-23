@@ -32,18 +32,18 @@ handler_predict.coxph <- function(vetiver_model, ...) {
             newdata <- hardhat::scream(newdata, ptype)
         }
 
-        pred <- predict(vetiver_model$model,
-                        newdata=newdata,
-                        type='survival',
-                        se.fit=T)
+        # add status and time variable as dummy
+        time_var <- all.vars(formula(model))[1]
+        newdata[[status_var]] <- NA
+        status_var <- all.vars(formula(model))[2]
+        newdata[[status_var]] <- NA
 
-        pred$conf_lo <- 100 * pmax(pred$fit - 1.96*pred$se.fit, 0)
-        pred$conf_hi <- 100 * pmin(pred$fit + 1.96*pred$se.fit, 1)
-        pred$fit <- 100 * pred$fit
+        res <- survival::survfit(model, newdata=newdata)
 
-        list(.pred = pred$fit,
-             .conf_lo = pred$conf_lo,
-             .conf_hi = pred$conf_hi)
+        list(.pred = 100 * res$surv,
+             .conf_lo = 100 * res$lower,
+             .conf_hi = 100 * res$upper,
+             .time = res$time)
     }
 
 }
