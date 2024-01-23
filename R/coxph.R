@@ -33,12 +33,12 @@ handler_predict.coxph <- function(vetiver_model, ...) {
         }
 
         # add status and time variable as dummy
-        time_var <- all.vars(formula(model))[1]
-        newdata[[status_var]] <- NA
-        status_var <- all.vars(formula(model))[2]
+        time_var <- all.vars(formula(vetiver_model$model))[1]
+        newdata[[time_var]] <- NA
+        status_var <- all.vars(formula(vetiver_model$model))[2]
         newdata[[status_var]] <- NA
 
-        res <- survival::survfit(model, newdata=newdata)
+        res <- survival::survfit(vetiver_model$model, newdata=newdata)
 
         list(.pred = 100 * res$surv,
              .conf_lo = 100 * res$lower,
