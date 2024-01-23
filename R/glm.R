@@ -7,8 +7,7 @@ vetiver_create_description.glm <- function(model) {
 #' @rdname vetiver_create_description
 #' @export
 vetiver_prepare_model.glm <- function(model) {
-    #butcher::butcher(model)
-    model$data <- NULL
+    model <- butcher::axe_data(model)
     model
 }
 

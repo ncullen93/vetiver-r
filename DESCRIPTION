@@ -34,6 +34,7 @@ Imports:
     rapidoc,
     readr (>= 1.4.0),
     rlang (>= 1.1.0),
+    survival,
     tibble,
     vctrs,
     withr
