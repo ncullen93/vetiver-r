@@ -28,7 +28,7 @@ handler_predict.glm <- function(vetiver_model, ...) {
             newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
         }
-        ret <- glmnet::predict.glmnet(vetiver_model$model, newdata = newdata, type='response', se.fit=TRUE, ...)
+        ret <- predict(vetiver_model$model, newdata = newdata, type='response', se.fit=TRUE, ...)
         list(.pred = 100 * ret$fit,
              .conf_lo = pmax(100 * (ret$fit - 1.96 * ret$se.fit), 0),
              .conf_hi = pmin(100 * (ret$fit + 1.96 * ret$se.fit)), 100)

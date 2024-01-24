@@ -34,7 +34,7 @@ handler_predict.glmnet <- function(vetiver_model, ...) {
             newdata <- vetiver_type_convert(newdata, ptype)
             newdata <- hardhat::scream(newdata, ptype)
         }
-        ret <- predict(vetiver_model$model,
+        ret <- glmnet::predict.glmnet(vetiver_model$model,
                        newx = as.matrix(newdata),
                        type='response',
                        ...)
