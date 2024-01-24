@@ -5,6 +5,7 @@
 \name{handler_startup.train}
 \alias{handler_startup.train}
 \alias{handler_predict.train}
+\alias{handler_predict.bundled_train}
 \alias{handler_predict.coxph}
 \alias{handler_startup.gam}
 \alias{handler_predict.gam}
@@ -38,6 +39,8 @@
 \method{handler_startup}{train}(vetiver_model)
 
 \method{handler_predict}{train}(vetiver_model, ...)
+
+\method{handler_predict}{bundled_train}(vetiver_model, ...)
 
 \method{handler_predict}{coxph}(vetiver_model, ...)
 

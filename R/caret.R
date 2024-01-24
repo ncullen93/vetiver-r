@@ -43,3 +43,15 @@ handler_predict.train <- function(vetiver_model, ...) {
     }
 
 }
+
+#' @rdname handler_startup
+#' @export
+handler_predict.bundled_train <- function(vetiver_model, ...) {
+
+    function(req) {
+        newdata <- req$body
+        newdata <- vetiver_type_convert(newdata, vetiver_model$prototype)
+        predict(vetiver_model$model, newdata = newdata, ...)
+    }
+
+}
