@@ -1,25 +1,32 @@
 #' @rdname vetiver_create_description
 #' @export
-vetiver_create_description.glm <- function(model) {
-    glue("A generalized linear model ({model$family$family} family, {model$family$link} link)")
+vetiver_create_description.gls <- function(model) {
+    glue("An Generalized Least-Squares model fit with the nlme package")
 }
 
 #' @rdname vetiver_create_description
 #' @export
-vetiver_prepare_model.glm <- function(model) {
+vetiver_prepare_model.gls <- function(model) {
     model <- butcher::axe_data(model)
+    model <- butcher::axe_fitted(model)
     model
 }
 
 #' @rdname vetiver_create_ptype
 #' @export
-vetiver_ptype.glm <- function(model, ...) {
-    vetiver_ptype.lm(model, ...)
+vetiver_ptype.gls <- function(model, ...) {
+    pred_names <- vetiver:::preds_lm_ish(model)
+    prototype <- vctrs::vec_ptype(model$data[pred_names])
+
+    if (is.null(prototype)) {
+        return(NULL)
+    }
+    tibble::as_tibble(prototype)
 }
 
 #' @rdname handler_startup
 #' @export
-handler_predict.glm <- function(vetiver_model, ...) {
+handler_predict.gls <- function(vetiver_model, ...) {
     ptype <- vetiver_model$prototype
 
     function(req) {

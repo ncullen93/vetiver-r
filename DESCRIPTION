@@ -25,6 +25,7 @@ Imports:
     ellipsis,
     fs,
     generics,
+    glmnet,
     glue,
     hardhat,
     lifecycle,
