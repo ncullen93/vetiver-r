@@ -51,7 +51,10 @@ handler_predict.bundled_train <- function(vetiver_model, ...) {
     function(req) {
         newdata <- req$body
         newdata <- vetiver_type_convert(newdata, vetiver_model$prototype)
-        predict(vetiver_model$model, newdata = newdata, ...)
+        predict(bundle::unbundle(vetiver_model$model), 
+                newdata = newdata, 
+                type = "prob",
+                ...)
     }
 
 }
