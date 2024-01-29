@@ -55,7 +55,8 @@ handler_predict.bundled_train <- function(vetiver_model, ...) {
                 newdata = newdata, 
                 type = "prob",
                 ...)
-        return(list(.pred=res[[ncol(res)]]))
+        # TODO: dont multiply by 100 for continuous endpoints...
+        return(list(.pred=100*res[[ncol(res)]]))
     }
 
 }
