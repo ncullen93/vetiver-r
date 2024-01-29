@@ -26,7 +26,6 @@ vetiver_ptype.glmnet <- function(model, ...) {
 #' @rdname handler_startup
 #' @export
 handler_predict.glmnet <- function(vetiver_model, ...) {
-    print('GOT GLM HANDLER')
     ptype <- vetiver_model$prototype
 
     function(req) {
