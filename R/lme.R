@@ -1,7 +1,7 @@
 #' @rdname vetiver_create_description
 #' @export
 vetiver_create_description.lme <- function(model) {
-    "An Linear mixed effects model fit with the nlme package"
+    "A linear mixed effects model fit with the nlme package"
 }
 
 #' @rdname vetiver_prepare_model
