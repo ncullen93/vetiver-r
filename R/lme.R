@@ -18,7 +18,7 @@ vetiver_prepare_model.lme<- function(model) {
 #' @rdname vetiver_ptype
 #' @export
 vetiver_ptype.lme <- function(model, ...) {
-    pred_names <- vetiver:::preds_lm_ish(model)
+    pred_names <- all.vars(stats::formula(model, fixed.only=T)[[3]])
     prototype <- vctrs::vec_ptype(model$data[pred_names])
 
     if (is.null(prototype)) {
