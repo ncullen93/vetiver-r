@@ -40,7 +40,7 @@ vetiver_ptype.lmer <- function(model, ...) {
 #' @export
 #'
 #' @examples
-handler_predict.lme <- function(vetiver_model, ...) {
+handler_predict.lmer <- function(vetiver_model, ...) {
 
     ptype <- vetiver_model$prototype
 
