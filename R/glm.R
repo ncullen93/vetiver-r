@@ -42,10 +42,10 @@ handler_predict.glm <- function(vetiver_model, ...) {
 
 #' Title
 #'
-#' # predict glm function that gives se.fit even when data is missing
-#' # this was needed because dispersion fails to be calculated without the
-#' # original training data. dispersion is basically always = 1 though so
-#' # it's not very necessary
+#' predict glm function that gives se.fit even when data is missing
+#' this was needed because dispersion fails to be calculated without the
+#' original training data. dispersion is basically always = 1 though so
+#' it's not very necessary
 #'
 #' @param object
 #' @param newdata

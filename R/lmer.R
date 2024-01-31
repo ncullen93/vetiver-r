@@ -28,58 +28,24 @@ vetiver_ptype.lmer <- function(model, ...) {
     tibble::as_tibble(prototype)
 }
 
-vetiver_signature.lmer <- function(model, ...) {
+#' @export
+vetiver_grid.lmer <- function(model, ...) {
     # recover data
     data <- model@frame
 
-    # get terms
-    terms <- all.vars(formula(model, fixed.only=T)[-2])
+    # get predictors
+    terms <- all.vars(stats::formula(model, fixed.only=T)[[3]])
 
     # get outcome
     outcome <- all.vars(formula(model)[[2]])
 
     # infer types and values from data for each term
-    term_levels <- get_term_levels(terms, data)
+    term_levels <- get_term_levels(c(outcome,terms), data)
 
     return(term_levels)
 }
 
-#' Get a reference grid-like object from all model terms
-#'
-#' @param terms character vector
-#' @param data data.frame
-#'
-#' @return
-#' @export
-get_term_levels <- function(terms, data) {
-    float_reducer <- function(vals) {
-        c(range(vals)[1], mean(vals), range(vals)[2])
-    }
-    int_reducer <- function(vals) {
-        c(range(vals)[1], as.integer(stats::median(vals)), range(vals)[2])
-    }
 
-    ref_levels = list()
-
-    for (term in terms) {
-        x = data[[term]]
-
-        if (is.factor(x))  {
-            ref_levels[[term]] <- levels(factor(x))
-        }
-        else if (is.character(x) || is.logical(x)) {
-            ref_levels[[term]] <- sort(unique(x))
-        }
-        else {
-            if (is.integer(x)) {
-                ref_levels[[term]] = int_reducer(as.numeric(x))
-            } else {
-                ref_levels[[term]] = float_reducer(as.numeric(x))
-            }
-        }
-    }
-    return(ref_levels)
-}
 
 #' Title
 #'

@@ -19,8 +19,8 @@ predict_glm(
 \item{...}{}
 }
 \description{
-# predict glm function that gives se.fit even when data is missing
-# this was needed because dispersion fails to be calculated without the
-# original training data. dispersion is basically always = 1 though so
-# it's not very necessary
+predict glm function that gives se.fit even when data is missing
+this was needed because dispersion fails to be calculated without the
+original training data. dispersion is basically always = 1 though so
+it's not very necessary
 }
