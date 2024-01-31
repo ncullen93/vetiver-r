@@ -27,23 +27,7 @@ vetiver_ptype.lme <- function(model, ...) {
     tibble::as_tibble(prototype)
 }
 
-#' @rdname vetiver_grid
-#' @export
-vetiver_grid.lme <- function(model, ...) {
-    # recover data
-    data <- model$data
 
-    # get predictors
-    terms <- all.vars(stats::formula(model, fixed.only=T)[[3]])
-
-    # get outcome
-    outcome <- all.vars(formula(model)[[2]])
-
-    # infer types and values from data for each term
-    term_levels <- get_term_levels(c(outcome,terms), data)
-
-    return(term_levels)
-}
 
 #' Title
 #'

@@ -24,34 +24,7 @@ vetiver_ptype.coxph <- function(model, ...) {
     tibble::as_tibble(prototype)
 }
 
-#' @rdname vetiver_grid
-#' @export
-vetiver_grid.coxph <- function(model, ...) {
-    # recover data
-    data <- model.frame(model)
 
-    strata_cols <- stringr::str_extract(colnames(data)[startsWith(colnames(data), 'strata(')],
-                                                "(?<=\\().+?(?=\\))")
-    colnames(data)[startsWith(colnames(data), 'strata(')] <-
-        stringr::str_extract(colnames(data)[startsWith(colnames(data), 'strata(')],
-                             "(?<=\\().+?(?=\\))")
-
-    # get predictors
-    terms <- all.vars(stats::formula(model)[[3]])
-
-    # get outcome
-    outcome <- all.vars(formula(model)[[2]])
-
-    term_levels <- list()
-
-    # add event variable
-    term_levels[[outcome[2]]] <- c(0, NA, 100)
-
-    # infer types and values from data for each term
-    term_levels <- c(term_levels, get_term_levels(terms, data))
-
-    return(term_levels)
-}
 
 #' @rdname handler_startup
 #' @export
