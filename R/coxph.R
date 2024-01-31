@@ -17,8 +17,8 @@ vetiver_ptype.coxph <- function(model, ...) {
     pred_names <- all.vars(stats::formula(model)[[3]])
     data <- model.frame(model)
     cnames <- colnames(data)
-    colnames(data)[startsWith(colnames(data), 'strata(')] <-
-        stringr::str_extract(colnames(data)[startsWith(colnames(data), 'strata(')],
+    colnames(data)[grepl('strata\\(',colnames(data))] <-
+        stringr::str_extract(colnames(data)[grepl('strata\\(',colnames(data))],
                              "(?<=\\().+?(?=\\))")
     prototype <- vctrs::vec_ptype(data[pred_names])
     tibble::as_tibble(prototype)
