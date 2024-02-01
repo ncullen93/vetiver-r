@@ -55,15 +55,19 @@ handler_predict.lme <- function(vetiver_model, ...) {
         newdata$.pred <- nlme:::predict.lme(model, newdata = newdata, level = 0)
 
         if (!purrr::is_null(ptype)) {
-            Designmat <- model.matrix(formula(model)[-2], newdata)
-            predvar <- diag(Designmat %*% vcov(model) %*% t(Designmat))
-            newdata$SE <- sqrt(predvar + model$sigma^2)
-            newdata$.conf_lo = newdata$.pred - 1.96*newdata$SE
-            newdata$.conf_hi = newdata$.pred + 1.96*newdata$SE
+            res <- tryCatch({
+                Designmat <- model.matrix(formula(model)[-2], newdata)
+                predvar <- diag(Designmat %*% vcov(model) %*% t(Designmat))
+                newdata$SE <- sqrt(predvar + model$sigma^2)
+                newdata$.conf_lo = newdata$.pred - 1.96*newdata$SE
+                newdata$.conf_hi = newdata$.pred + 1.96*newdata$SE
 
-            res <- list(.pred = newdata$.pred,
-                        .conf_lo = newdata$.conf_lo,
-                        .conf_hi = newdata$.conf_hi)
+                list(.pred = newdata$.pred,
+                     .conf_lo = newdata$.conf_lo,
+                     .conf_hi = newdata$.conf_hi)
+            }, error = function(cond) {
+                list(.pred = newdata$pred)
+            })
         } else {
             res <- list(.pred = newdata$.pred)
         }

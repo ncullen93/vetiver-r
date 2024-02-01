@@ -23,7 +23,7 @@
 \alias{vetiver_create_description.lm}
 \alias{vetiver_prepare_model.lm}
 \alias{vetiver_create_description.lme}
-\alias{vetiver_create_description.lmer}
+\alias{vetiver_create_description.lmerMod}
 \alias{vetiver_create_description.luz_module_fitted}
 \alias{vetiver_prepare_model.luz_module_fitted}
 \alias{vetiver_create_description.Learner}
@@ -82,7 +82,7 @@
 
 \method{vetiver_create_description}{lme}(model)
 
-\method{vetiver_create_description}{lmer}(model)
+\method{vetiver_create_description}{lmerMod}(model)
 
 \method{vetiver_create_description}{luz_module_fitted}(model)
 

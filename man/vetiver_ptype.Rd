@@ -2,13 +2,13 @@
 % Please edit documentation in R/lme.R, R/lmer.R
 \name{vetiver_ptype.lme}
 \alias{vetiver_ptype.lme}
-\alias{vetiver_ptype.lmer}
+\alias{vetiver_ptype.lmerMod}
 \title{this is mainly need for keeping track of all the levels for factor variables
 which itself is mainly needed for generating confidence intervals}
 \usage{
 \method{vetiver_ptype}{lme}(model, ...)
 
-\method{vetiver_ptype}{lmer}(model, ...)
+\method{vetiver_ptype}{lmerMod}(model, ...)
 }
 \description{
 this is mainly need for keeping track of all the levels for factor variables
